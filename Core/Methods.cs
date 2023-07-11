@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Core
+﻿namespace Core
 {
     public class Methods
     {
@@ -27,11 +21,15 @@ namespace Core
             if (numero < 100)
                 return dezenas[numero / 10] + (numero % 10 == 0 ? "" : $" e {ObterNumeroPorExtenso(numero % 10)}");
 
-            //if (numero < 100)
-            //    return dezenas[numero / 10] + (numero % 10 != 0 ? " e " + ObterNumeroPorExtenso(numero % 10) : "");
-
             return centenas[numero / 100] + (numero % 100 != 0 ? " e " + ObterNumeroPorExtenso(numero % 100) : "");
 
+        }
+
+
+        public static int SomarArray(params int[] array)
+        {
+            int result = array.Sum();
+            return result;
         }
 
     }
