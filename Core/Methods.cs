@@ -21,8 +21,7 @@
             if (numero < 100)
                 return dezenas[numero / 10] + (numero % 10 == 0 ? "" : $" e {ObterNumeroPorExtenso(numero % 10)}");
 
-            return centenas[numero / 100] + (numero % 100 != 0 ? " e " + ObterNumeroPorExtenso(numero % 100) : "");
-
+            return centenas[numero / 100] + (numero % 100 == 0 ? "" : $" e {ObterNumeroPorExtenso(numero % 100)}");   
         }
 
 
