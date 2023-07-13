@@ -67,7 +67,38 @@ public static int SomarArray(params int[] array)
 
 ### 3. Como você lidou com os possíveis erros de entrada na implementação do desafio 3, como uma divisão por zero ou uma expressão inválida?
 
-resposta...
+Para implementar, eu utilizei um _System.Data.DataTable_ que consegue receber e resolver expressões aritméticas e retornar como se fosse uma leitura no banco de dados.
+
+Para verificar se a expressão é válida, eu criei uma _array_ contendo os operadores aritméticos que a expressão deveria conter.
+
+Implementei também a validação se a empressão contém letras, para não deixar o método continuar.
+
+
+```csharp
+public static decimal CalcularExpressao(string expressao)
+{
+    expressao = expressao.Trim().Replace(" ", "");
+    string[] operadoresAritmeticos = { "+", "-", "*", "/" };
+    char[] comandos = expressao.ToCharArray();
+
+    bool temLetra = comandos.Any(char.IsLetter);
+    if (temLetra)
+        throw new ArgumentException("Expressão inválida.");
+
+    bool temComando = comandos.Any(x => operadoresAritmeticos.Contains(x.ToString()));
+    if (temComando is false)
+        throw new ArgumentException("Expressão inválida.");
+
+    using (DataTable table = new())
+    {
+        table.Columns.Add("expressao", typeof(string), expressao);
+        DataRow row = table.NewRow();
+        table.Rows.Add(row);
+        decimal resultado = decimal.Parse((string)row["expressao"]);
+        return resultado;
+    }
+}
+```
 
 <br />
 <hr />

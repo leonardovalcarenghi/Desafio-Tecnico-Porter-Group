@@ -5,8 +5,8 @@ using Core.Interfaces;
 Console.WriteLine("Hello, World!");
 
 
-//string expressaoMatemarica = "1 + 1 * 2";
-//double resultadoDaExpressao = Methods.CalcularExpressao(expressaoMatemarica);
+string expressaoMatemarica = "2 + 3 * 5";
+decimal resultadoDaExpressao = Methods.CalcularExpressao(expressaoMatemarica);
 
 int resultado1 = Methods.SomarArray(10, 10, 10, 10, 10);
 Console.WriteLine($"Resultado da Soma 01: {resultado1}");

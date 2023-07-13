@@ -1,5 +1,6 @@
 ﻿using Core.Interfaces;
 using System.Data;
+using System.Linq;
 
 namespace Core
 {
@@ -34,6 +35,29 @@ namespace Core
             return result;
         }
 
+        public static decimal CalcularExpressao(string expressao)
+        {
+            expressao = expressao.Trim().Replace(" ", "");
+            string[] operadoresAritmeticos = { "+", "-", "*", "/" };
+            char[] comandos = expressao.ToCharArray();
+
+            bool temLetra = comandos.Any(char.IsLetter);
+            if (temLetra)
+                throw new ArgumentException("Expressão inválida.");
+
+            bool temComando = comandos.Any(x => operadoresAritmeticos.Contains(x.ToString()));
+            if (temComando is false)
+                throw new ArgumentException("Expressão inválida.");
+
+            using (DataTable table = new())
+            {
+                table.Columns.Add("expressao", typeof(string), expressao);
+                DataRow row = table.NewRow();
+                table.Rows.Add(row);
+                decimal resultado = decimal.Parse((string)row["expressao"]);
+                return resultado;
+            }
+        }
 
 
         public static List<IObject> ObterObjetosUnicos(List<IObject> list)
