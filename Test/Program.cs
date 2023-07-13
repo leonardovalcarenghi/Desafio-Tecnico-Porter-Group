@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 Console.WriteLine("");
-Console.WriteLine("Desafio Porter Group");
+Console.WriteLine("Desafio Porter Group".ToUpper());
 Console.WriteLine("Desenvolvido por Leonardo Valcarenghi");
 
 
