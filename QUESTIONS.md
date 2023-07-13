@@ -25,14 +25,72 @@ Depois utilizando a própria função recursivamente, eu obtenho a unidade.
 
 Para números entre 100 e 999 a mesma regra mencionada acima é aplicada. Somente alterando a divisão por 100 em vez de 10.
 
-<br>
-<br>
-<br>
+```csharp
+public static string ObterNumeroPorExtenso(int numero)
+{
+    string[] unidades = { "", "um", "dois", "três", "quatro", "cinco", "seis", "sete", "oito", "nove", "dez", "onze", "doze", "treze", "quatorze", "quinze", "dezesseis", "dezessete", "dezoito", "dezenove" };
+    string[] dezenas = { "", "", "vinte", "trinta", "quarenta", "cinquenta", "sessenta", "setenta", "oitenta", "noventa" };
+    string[] centenas = { "", "cento", "duzentos", "trezentos", "quatrocentos", "quinhentos", "seiscentos", "setecentos", "oitocentos", "novecentos" };
+
+    if (numero is < 0 or > 999)
+        throw new ArgumentException("O número deve estar entre 0 e 999.");
+
+    if (numero is 0)
+        return "zero";
+
+    if (numero < 20)
+        return unidades[numero];
+
+    if (numero < 100)
+        return dezenas[numero / 10] + (numero % 10 == 0 ? "" : $" e {ObterNumeroPorExtenso(numero % 10)}");
+
+    return centenas[numero / 100] + (numero % 100 == 0 ? "" : $" e {ObterNumeroPorExtenso(numero % 100)}");
+}
+```
+<br />
+<hr />
 
 ### 2. Como você lidou com a performance na implementação do desafio 2, considerando que o array pode ter até 1 milhão de números?
 
 Implementei a soma dos _inteiros_ utilizando _System.Linq_, independente de quantos itens a _array_ possuir, todos serão somados.
 
+```csharp
+public static int SomarArray(params int[] array)
+{
+    int result = array.Sum();
+    return result;
+}
+```
+
+<br />
+<hr />
+
+### 3. Como você lidou com os possíveis erros de entrada na implementação do desafio 3, como uma divisão por zero ou uma expressão inválida?
+
+resposta...
+
+<br />
+<hr />
+
+### 4. Como você implementou a função que remove objetos repetidos na implementação do desafio 4? Quais foram os principais desafios encontrados?
+
+Eu criei uma _interface_ chamada **IObject** com uma _propriedade_ chamada **Legenda** e 3 _classes_ que implementam essa _interface_.
+
+Fiz um método que recebe uma lista de classes que possue o **IObject** implementado.
 <br>
-<br>
-<br>
+Dentro desse método eu faço:
+- Um _GroupBy_ pela **Legenda**.
+- Um _Select_ _First_ para obter o primeiro item da lista encontrado.
+- Converto tudo em uma nova lista.
+
+
+```csharp
+public static List<IObject> ObterObjetosUnicos(List<IObject> list)
+{
+    if (list is null)
+        throw new ArgumentException("Lista é nula.");
+
+    List<IObject> itensUnicos = list.GroupBy(x => x.Legenda).Select(y => y.First()).ToList();
+    return itensUnicos;
+}
+```

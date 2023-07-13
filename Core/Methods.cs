@@ -1,4 +1,7 @@
-﻿namespace Core
+﻿using Core.Interfaces;
+using System.Data;
+
+namespace Core
 {
     public class Methods
     {
@@ -21,7 +24,7 @@
             if (numero < 100)
                 return dezenas[numero / 10] + (numero % 10 == 0 ? "" : $" e {ObterNumeroPorExtenso(numero % 10)}");
 
-            return centenas[numero / 100] + (numero % 100 == 0 ? "" : $" e {ObterNumeroPorExtenso(numero % 100)}");   
+            return centenas[numero / 100] + (numero % 100 == 0 ? "" : $" e {ObterNumeroPorExtenso(numero % 100)}");
         }
 
 
@@ -29,6 +32,17 @@
         {
             int result = array.Sum();
             return result;
+        }
+
+
+
+        public static List<IObject> ObterObjetosUnicos(List<IObject> list)
+        {
+            if (list is null)
+                throw new ArgumentException("Lista é nula.");
+
+            List<IObject> itensUnicos = list.GroupBy(x => x.Legenda).Select(y => y.First()).ToList();
+            return itensUnicos;
         }
 
     }
