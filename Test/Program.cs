@@ -1,46 +1,69 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Core;
 using Core.Interfaces;
+using System.Collections.Generic;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
-Console.WriteLine("Hello, World!");
-
-
-string expressaoMatemarica = "2 + 3 * 5";
-decimal resultadoDaExpressao = Methods.CalcularExpressao(expressaoMatemarica);
-
-int resultado1 = Methods.SomarArray(10, 10, 10, 10, 10);
-Console.WriteLine($"Resultado da Soma 01: {resultado1}");
-
-int[] numerosParaSomar = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-int resultado2 = Methods.SomarArray(numerosParaSomar);
-Console.WriteLine($"Resultado da Soma 02: {resultado2}");
+Console.WriteLine("");
+Console.WriteLine("Desafio Porter Group");
+Console.WriteLine("Desenvolvido por Leonardo Valcarenghi");
 
 
+Console.WriteLine("");
+Console.WriteLine("--------------------------------------------------------------");
+Console.WriteLine("");
 
-
-List<Object01> list01 = new() { new Object01(), new Object01(), new Object01() };
-List<Object02> list02 = new() { new Object02(), new Object02() };
-List<Object03> list03 = new() { new Object03(), new Object03(), new Object03(), new Object03() };
-List<IObject> list = new();
-list.AddRange(list01);
-list.AddRange(list02);
-list.AddRange(list03);
-
-List<IObject> result = Methods.ObterObjetosUnicos(list);
-
-void DigitarNumero()
 {
-
-    Console.WriteLine("Escreva um número:");
-    string? numero = Console.ReadLine();
-    if (!string.IsNullOrEmpty(numero) && numero.Any(char.IsDigit))
-    {
-        string numeroPorExtenso = Methods.ObterNumeroPorExtenso(int.Parse(numero));
-        Console.WriteLine($"> Resposta: {numeroPorExtenso}");
-    }
-    Console.WriteLine("");
-    DigitarNumero();
+    // Desafio 01:
+    Console.WriteLine("-> DESAFIO 01");
+    Console.WriteLine($"Número '01': {Methods.ObterNumeroPorExtenso(1)}");
+    Console.WriteLine($"Número '20': {Methods.ObterNumeroPorExtenso(20)}");
+    Console.WriteLine($"Número '88': {Methods.ObterNumeroPorExtenso(88)}");
+    Console.WriteLine($"Número '537': {Methods.ObterNumeroPorExtenso(537)}");
+    Console.WriteLine($"Número '999': {Methods.ObterNumeroPorExtenso(999)}");
 }
 
-DigitarNumero();
+Console.WriteLine("");
+Console.WriteLine("--------------------------------------------------------------");
+Console.WriteLine("");
+
+{
+    // Desafio 02:
+    Console.WriteLine("-> DESAFIO 02");
+    Console.WriteLine($" Somar números 2, 4, 6, 8, 10 = {Methods.SomarArray(2, 4, 6, 8, 10)}");
+    Console.WriteLine($" Somar números 7, 16, 31 = {Methods.SomarArray(new int[] { 7, 16, 31 })}");
+}
+
+Console.WriteLine("");
+Console.WriteLine("--------------------------------------------------------------");
+Console.WriteLine("");
+
+{
+    // Desafio 03:
+    Console.WriteLine("-> DESAFIO 03");
+    List<IObject> listaDeObjetos = new() {
+        new Object01(), new Object01(), new Object01(),
+        new Object02(), new Object02(), new Object02(), new Object02(),
+        new Object03(), new Object03(), new Object03(), new Object03(), new Object03()
+};
+    List<IObject> listaDeObjetosUnicos = Methods.ObterObjetosUnicos(listaDeObjetos);
+
+    Console.WriteLine($"Total de objetos na lista: {listaDeObjetos.Count}");
+    Console.WriteLine($"Total de objetos unícos na lista: {listaDeObjetosUnicos.Count}");
+    listaDeObjetosUnicos.ForEach(objeto => { Console.WriteLine($"Legenda do objeto: {objeto.Legenda}"); });
+
+}
+
+Console.WriteLine("");
+Console.WriteLine("--------------------------------------------------------------");
+Console.WriteLine("");
+
+{
+    // Desafio 04:
+    Console.WriteLine("-> DESAFIO 04");
+    Console.WriteLine($"Expressão: 2 + 3 * 5 = {Methods.CalcularExpressao("2 + 3 * 5")}");
+    Console.WriteLine($"Expressão: 1 + 2 + 3 + 4 + 5 * 2 / 3 = {Methods.CalcularExpressao("1 + 2 + 3 + 4 + 5 * 2 / 3")}");
+}
+
+
 Console.ReadKey();
